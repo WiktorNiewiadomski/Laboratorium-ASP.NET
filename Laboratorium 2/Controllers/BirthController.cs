@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Laboratorium_2.Controllers
 {
-    public class CalculatorController : Controller
+    public class BirthController : Controller
     {
         public IActionResult Index()
         {
@@ -16,7 +16,7 @@ namespace Laboratorium_2.Controllers
         }
 
         [HttpPost]
-        public IActionResult Result([FromForm]Calculator model)
+        public IActionResult Result([FromForm]Birth model)
         {
             if (!model.IsValid())
             {
@@ -24,11 +24,5 @@ namespace Laboratorium_2.Controllers
             }
             return View(model);
         }
-
-        public enum Operators
-        {
-            Unknown, Add, Mul, Sub, Div
-        }
-
     }
 }
