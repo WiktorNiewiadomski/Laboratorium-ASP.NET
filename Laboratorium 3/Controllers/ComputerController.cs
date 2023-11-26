@@ -6,11 +6,15 @@ namespace Laboratorium_3.Controllers
 {
     public class ComputerController : Controller
     {
-        static Dictionary<int, Computer> _computers = new Dictionary<int, Computer>();
+        private readonly IComputerService _computerService;
 
+        public ComputerController(IComputerService computerService)
+        {
+            _computerService = computerService;
+        }
         public IActionResult Index()
         {
-            return View(_computers);
+            return View(_computerService.FindAll());
         }
 
         [HttpGet]
@@ -21,9 +25,7 @@ namespace Laboratorium_3.Controllers
         {
             if (ModelState.IsValid)
             {
-                int id = _computers.Keys.Count != 0 ? _computers.Keys.Max() : 0;
-                model.Id = id + 1;
-                _computers.Add(model.Id, model);
+                _computerService.Add(model);
 
                 return RedirectToAction("Index");
             }
@@ -37,9 +39,9 @@ namespace Laboratorium_3.Controllers
         public IActionResult Edit(int id)
         {
 
-            if (_computers.Keys.Contains(id))
+            if (_computerService.FindById(id) != null)
             {
-                return View(_computers[id]);
+                return View(_computerService.FindById(id));
             }
             else
             {
@@ -52,7 +54,7 @@ namespace Laboratorium_3.Controllers
         {
             if (ModelState.IsValid)
             {
-                _computers[model.Id] = model;
+                _computerService.Update(model);
                 return RedirectToAction("Index");
             }
             else
@@ -65,9 +67,9 @@ namespace Laboratorium_3.Controllers
         public IActionResult Delete(int id)
         {
 
-            if (_computers.Keys.Contains(id))
+            if (_computerService.FindById(id) != null)
             {
-                return View(_computers[id]);
+                return View(_computerService.FindById(id));
             }
             else
             {
@@ -80,7 +82,7 @@ namespace Laboratorium_3.Controllers
         {
             if (ModelState.IsValid)
             {
-                _computers.Remove(model.Id);
+                _computerService.Delete(model.Id);
                 return RedirectToAction("Index");
             }
             else
@@ -93,9 +95,9 @@ namespace Laboratorium_3.Controllers
         public IActionResult Details(int id)
         {
 
-            if (_computers.Keys.Contains(id))
+            if (_computerService.FindById(id) != null)
             {
-                return View(_computers[id]);
+                return View(_computerService.FindById(id));
             }
             else
             {

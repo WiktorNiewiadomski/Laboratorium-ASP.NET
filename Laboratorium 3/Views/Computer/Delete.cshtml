@@ -7,42 +7,42 @@
                 <input type="number" asp-for="Id" hidden />
                 <div asp-validation-summary="All"></div>
                 <div>
-                    <label asp-for="Name">Computer name</label>
                     <div>
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
                     <input class="form-control" type="text" asp-for="Name" readonly/>
                 </div>
                 <div>
-                    <label asp-for="Processor">Processor</label>
+                    <div>
+                        <span asp-validation-for="Priority" class="text-danger"></span>
+                    </div>
+                    <select class="form-control" asp-for="Priority" asp-items="@Html.GetEnumSelectList<Priority>()"></select>
+                </div>
+                <div>
                     <div>
                         <span asp-validation-for="Processor" class="text-danger"></span>
                     </div>
                     <input class="form-control" type="text" asp-for="Processor" readonly />
                 </div>
                 <div>
-                    <label asp-for="Storage">Storage</label>
                     <div>
                         <span asp-validation-for="Storage" class="text-danger"></span>
                     </div>
                     <input class="form-control" type="text" asp-for="Storage" readonly />
                 </div>
                 <div>
-                    <label asp-for="GraphicsCard">GraphicsCard</label>
                     <div>
                         <span asp-validation-for="GraphicsCard" class="text-danger"></span>
                     </div>
                     <input class="form-control" type="text" asp-for="GraphicsCard" readonly />
                 </div>
                 <div>
-                    <label asp-for="Manufacturer">Manufacturer</label>
                     <div>
                         <span asp-validation-for="Manufacturer" class="text-danger"></span>
                     </div>
                     <input class="form-control" type="text" asp-for="Manufacturer" readonly />
                 </div>
                 <div>
-                    <label asp-for="DateOfManufacture">DateOfManufacture</label>
                     <div>
                         <span asp-validation-for="DateOfManufacture" class="text-danger"></span>
                     </div>

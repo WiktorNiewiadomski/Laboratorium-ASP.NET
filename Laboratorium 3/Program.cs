@@ -1,3 +1,5 @@
+using Laboratorium_3.Models;
+
 namespace Laboratorium_3
 {
     public class Program
@@ -8,6 +10,7 @@ namespace Laboratorium_3
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddSingleton<IComputerService, ComputerService>();
 
             var app = builder.Build();
 
