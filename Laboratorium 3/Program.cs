@@ -1,4 +1,5 @@
 using Laboratorium_3.Models;
+using System.Xml.Linq;
 
 namespace Laboratorium_3
 {
@@ -10,7 +11,8 @@ namespace Laboratorium_3
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddSingleton<IComputerService, ComputerService>();
+            builder.Services.AddDbContext<Data.AppDbContext>();
+            builder.Services.AddTransient<IComputerService, EFComputerService>();
 
             var app = builder.Build();
 
