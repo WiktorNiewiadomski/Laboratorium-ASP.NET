@@ -1,0 +1,29 @@
+﻿@model GraphicsCard
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-6">
+            <h2>Delete graphics card</h2>
+            <form asp-action="Delete" asp-controller="GraphicsCard" method="POST">
+                <input type="number" asp-for="Id" hidden />
+                <div>
+                    <label asp-for="Name">Name</label>
+                    <input class="form-control" type="text" asp-for="Name" readonly/>
+                </div>
+                <label asp-for="Memory">Memory</label>
+                <div class="input-group">
+                    <div>
+                        <span asp-validation-for="Memory" class="text-danger"></span>
+                    </div>
+                    <input class="form-control" type="text" asp-for="Memory" readonly />
+                    <div class="input-group-append">
+                        <span class="input-group-text"> GB </span>
+                    </div>
+                </div>
+                <button type="submit">Delete</button>
+            </form>
+            <form asp-action="Index" asp-controller="GraphicsCard" method="GET">
+                <button type="submit">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>

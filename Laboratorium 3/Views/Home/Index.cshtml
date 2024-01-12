@@ -4,5 +4,17 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
+    <form asp-action="Index" asp-controller="Computer" method="GET">
+        <button type="submit">Computers list</button>
+    </form>
+    <form asp-action="Index" asp-controller="Processor" method="GET">
+        <button type="submit">Processors list</button>
+    </form>
+    <form asp-action="Index" asp-controller="Storage" method="GET">
+        <button type="submit">Storages list</button>
+    </form>
+    <form asp-action="Index" asp-controller="GraphicsCard" method="GET">
+        <button type="submit">Graphics cards list</button>
+    </form>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>

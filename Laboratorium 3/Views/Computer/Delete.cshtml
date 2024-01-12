@@ -2,50 +2,41 @@
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-6">
-            <h2>Computer</h2>
+            <h2>Delete computer</h2>
             <form asp-action="Delete" asp-controller="Computer" method="POST">
                 <input type="number" asp-for="Id" hidden />
-                <div asp-validation-summary="All"></div>
                 <div>
-                    <div>
-                        <span asp-validation-for="Name" class="text-danger"></span>
-                    </div>
+                    <label asp-for="Name">Name</label>
                     <input class="form-control" type="text" asp-for="Name" readonly/>
                 </div>
                 <div>
-                    <div>
-                        <span asp-validation-for="Priority" class="text-danger"></span>
-                    </div>
-                    <select class="form-control" asp-for="Priority" asp-items="@Html.GetEnumSelectList<Priority>()"></select>
+                    <label asp-for="ComputerType">Computer Type</label>
+                    <select class="form-control" asp-for="ComputerType" asp-items="@Html.GetEnumSelectList<ComputerType>()" readonly></select>
                 </div>
                 <div>
-                    <div>
-                        <span asp-validation-for="Processor" class="text-danger"></span>
+                    <label asp-for="Processor.Name">Processor</label>
+                    <div class="form-group">
+                        <input class="form-control" type="text" asp-for="Processor.Name" readonly />
                     </div>
-                    <input class="form-control" type="text" asp-for="Processor" readonly />
                 </div>
                 <div>
-                    <div>
-                        <span asp-validation-for="Storage" class="text-danger"></span>
+                    <label asp-for="Storage.Name">Storage</label>
+                    <div class="form-group">
+                        <input class="form-control" type="text" asp-for="Storage.Name" readonly />
                     </div>
-                    <input class="form-control" type="text" asp-for="Storage" readonly />
                 </div>
                 <div>
-                    <div>
-                        <span asp-validation-for="GraphicsCard" class="text-danger"></span>
+                    <label asp-for="GraphicsCard.Name">Graphics Card</label>
+                    <div class="form-group">
+                        <input class="form-control" type="text" asp-for="GraphicsCard.Name" readonly />
                     </div>
-                    <input class="form-control" type="text" asp-for="GraphicsCard" readonly />
                 </div>
                 <div>
-                    <div>
-                        <span asp-validation-for="Manufacturer" class="text-danger"></span>
-                    </div>
+                    <label asp-for="Manufacturer">Manufacturer</label>
                     <input class="form-control" type="text" asp-for="Manufacturer" readonly />
                 </div>
                 <div>
-                    <div>
-                        <span asp-validation-for="DateOfManufacture" class="text-danger"></span>
-                    </div>
+                    <label asp-for="DateOfManufacture">Date of manufacture</label>
                     <input class="form-control" type="text" asp-for="DateOfManufacture" readonly />
                 </div>
                 <button type="submit">Delete</button>

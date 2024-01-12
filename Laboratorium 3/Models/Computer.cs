@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Laboratorium_3.Models
@@ -12,21 +15,39 @@ namespace Laboratorium_3.Models
         [Display(Name = "Name")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Priority is required")]
-        [Display(Name = "Priority")]
-        public Priority Priority { get; set; }
+        [Required(ErrorMessage = "ComputerType is required")]
+        [Display(Name = "ComputerType")]
+        public ComputerType ComputerType { get; set; }
 
-        [Required(ErrorMessage = "Processor is required")]
+        [HiddenInput]
+        public int ProcessorId { get; set; }
+
+        [ValidateNever]
         [Display(Name = "Processor")]
-        public string Processor { get; set; }
+        public Processor Processor { get; set; }
 
-        [Required(ErrorMessage = "Storage is required")]
+        [ValidateNever]
+        public List<SelectListItem> Processors { get; set; }
+
+        [HiddenInput]
+        public int StorageId { get; set; }
+
+        [ValidateNever]
         [Display(Name = "Storage")]
-        public string Storage { get; set; }
+        public Storage Storage { get; set; }
 
-        [Required(ErrorMessage = "GraphicsCard is required")]
-        [Display(Name = "GraphicsCard")]
-        public string GraphicsCard { get; set; }
+        [ValidateNever]
+        public List<SelectListItem> Storages { get; set; }
+
+        [HiddenInput]
+        public int GraphicsCardId { get; set; }
+
+        [ValidateNever]
+        [Display(Name = "Graphics Card")]
+        public GraphicsCard GraphicsCard { get; set; }
+
+        [ValidateNever]
+        public List<SelectListItem> GraphicsCards { get; set; }
 
         [Required(ErrorMessage = "Manufacturer is required")]
         [Display(Name = "Manufacturer")]
@@ -34,7 +55,7 @@ namespace Laboratorium_3.Models
 
         [Required(ErrorMessage = "DateOfManufacture is required")]
         [DataType(DataType.DateTime, ErrorMessage = "It needs to be a date")]
-        [Display(Name = "DateOfManufacture")]
+        [Display(Name = "Date of manufacture")]
         public DateTime DateOfManufacture { get; set; }
      }
 }

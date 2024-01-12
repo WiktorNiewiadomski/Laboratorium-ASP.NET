@@ -11,10 +11,13 @@ namespace Laboratorium_3.Mappers
             {
                 Id = entity.Id,
                 Name = entity.Name,
-                Priority = (Models.Priority)entity.Priority,
-                Processor = entity.Processor,
-                Storage = entity.Storage,
-                GraphicsCard = entity.GraphicsCard,
+                ComputerType = (Models.ComputerType)entity.ComputerType,
+                ProcessorId = entity.ProcessorId,
+                Processor = ProcessorMapper.FromEntity(entity.Processor),
+                StorageId = entity.StorageId,
+                Storage = StorageMapper.FromEntity(entity.Storage),
+                GraphicsCardId = entity.GraphicsCardId,
+                GraphicsCard = GraphicsCardMapper.FromEntity(entity.GraphicsCard),
                 Manufacturer = entity.Manufacturer,
                 DateOfManufacture = entity.DateOfManufacture,
             };
@@ -26,10 +29,10 @@ namespace Laboratorium_3.Mappers
             {
                 Id = model.Id,
                 Name = model.Name,
-                Priority = (Data.Priority)model.Priority,
-                Processor = model.Processor,
-                Storage = model.Storage,
-                GraphicsCard = model.GraphicsCard,
+                ComputerType = (Data.ComputerType)model.ComputerType,
+                ProcessorId = model.ProcessorId,
+                StorageId = model.StorageId,
+                GraphicsCardId = model.GraphicsCardId,
                 Manufacturer = model.Manufacturer,
                 DateOfManufacture = model.DateOfManufacture,
             };

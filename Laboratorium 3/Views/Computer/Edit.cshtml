@@ -2,53 +2,60 @@
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-6">
-            <h2>Computer</h2>
+            <h2>Edit processor</h2>
             <form asp-action="Edit" asp-controller="Computer" method="POST">
                 <input type="number" asp-for="Id" hidden />
-                <div asp-validation-summary="All"></div>
-                <div>
-                    <div>
-                        <span asp-validation-for="Name" class="text-danger"></span>
-                    </div>
-                    <input class="form-control" type="text" asp-for="Name"/>
-                </div>
+                <div asp-validation-summary="All"></div>
                 <div>
+                    <label asp-for="Name">Name</label>
                     <div>
-                        <span asp-validation-for="Priority" class="text-danger"></span>
+                        <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
-                    <select class="form-control" asp-for="Priority" asp-items="@Html.GetEnumSelectList<Priority>()"></select>
+                    <input class="form-control" type="text" asp-for="Name" />
                 </div>
                 <div>
+                    <label asp-for="ComputerType">Computer Type</label>
                     <div>
-                        <span asp-validation-for="Processor" class="text-danger"></span>
+                        <span asp-validation-for="ComputerType" class="text-danger"></span>
                     </div>
-                    <input class="form-control" type="text" asp-for="Processor" />
+                    <select class="form-control" asp-for="ComputerType" asp-items="@Html.GetEnumSelectList<ComputerType>()"></select>
                 </div>
                 <div>
-                    <div>
-                        <span asp-validation-for="Storage" class="text-danger"></span>
+                    <label asp-for="ProcessorId">Processor</label>
+                    <div class="form-group">
+                        <select class="form-control" asp-for="ProcessorId" asp-items="@Model.Processors"></select>
                     </div>
-                    <input class="form-control" type="text" asp-for="Storage" />
                 </div>
                 <div>
-                    <div>
-                        <span asp-validation-for="GraphicsCard" class="text-danger"></span>
+                    <label asp-for="StorageId">Storage</label>
+                    <div class="form-group">
+                        <select class="form-control" asp-for="StorageId" asp-items="@Model.Storages"></select>
                     </div>
-                    <input class="form-control" type="text" asp-for="GraphicsCard" />
                 </div>
                 <div>
+                    <label asp-for="GraphicsCardId">Graphics Card</label>
+                    <div class="form-group">
+                        <select class="form-control" asp-for="GraphicsCardId" asp-items="@Model.GraphicsCards"></select>
+                    </div>
+                </div>
+                <div>
+                    <label asp-for="Manufacturer">Manufacturer</label>
                     <div>
                         <span asp-validation-for="Manufacturer" class="text-danger"></span>
                     </div>
                     <input class="form-control" type="text" asp-for="Manufacturer" />
                 </div>
                 <div>
+                    <label asp-for="DateOfManufacture">Date of manufacture</label>
                     <div>
                         <span asp-validation-for="DateOfManufacture" class="text-danger"></span>
                     </div>
                     <input class="form-control" type="text" asp-for="DateOfManufacture" />
                 </div>
                 <button type="submit">Save</button>
+            </form>
+            <form asp-action="Index" asp-controller="Computer" method="GET">
+                <button type="submit">Cancel</button>
             </form>
         </div>
     </div>

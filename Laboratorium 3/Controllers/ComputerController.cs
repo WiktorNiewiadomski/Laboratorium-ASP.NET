@@ -1,9 +1,11 @@
 ﻿using Laboratorium_3.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Laboratorium_3.Controllers
 {
+    [Authorize]
     public class ComputerController : Controller
     {
         private readonly IComputerService _computerService;
@@ -12,15 +14,23 @@ namespace Laboratorium_3.Controllers
         {
             _computerService = computerService;
         }
+
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View(_computerService.FindAll());
         }
 
         [HttpGet]
-        public IActionResult Create() { return View(); }
+        [Authorize(Roles = "admin")]
+        public IActionResult Create() {
+            Computer model = new Computer();
+            PopulateComuterSelectLists(ref model);
+            return View(model);
+        }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public IActionResult Create(Computer model)
         {
             if (ModelState.IsValid)
@@ -31,17 +41,21 @@ namespace Laboratorium_3.Controllers
             }
             else
             {
-                return View();
+                PopulateComuterSelectLists(ref model);
+                return View(model);
             }
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public IActionResult Edit(int id)
         {
+            Computer computer = _computerService.FindById(id);
 
-            if (_computerService.FindById(id) != null)
+            if (computer != null)
             {
-                return View(_computerService.FindById(id));
+                PopulateComuterSelectLists(ref computer);
+                return View(computer);
             }
             else
             {
@@ -50,20 +64,24 @@ namespace Laboratorium_3.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public IActionResult Edit(Computer model)
         {
             if (ModelState.IsValid)
             {
-                _computerService.Update(model);
+                _computerService.Update
+                    (model);
                 return RedirectToAction("Index");
             }
             else
             {
-                return View();
+                PopulateComuterSelectLists(ref model);
+                return View(model);
             }
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public IActionResult Delete(int id)
         {
 
@@ -78,6 +96,7 @@ namespace Laboratorium_3.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public IActionResult Delete(Computer model)
         {
             if (ModelState.IsValid)
@@ -103,6 +122,37 @@ namespace Laboratorium_3.Controllers
             {
                 return NotFound();
             };
+        }
+
+        private void PopulateComuterSelectLists(ref Computer computer)
+        {
+            computer.Processors = ListOfProcessors();
+            computer.Storages = ListOfStorages();
+            computer.GraphicsCards = ListOfGraphicsCards();
+        }
+
+        private List<SelectListItem> ListOfProcessors()
+        {
+            return _computerService
+                .FindAllProcessorsForViewModel()
+                .Select(p => new SelectListItem() { Value = p.Id.ToString(), Text = p.Name})
+                .ToList();
+        }
+
+        private List<SelectListItem> ListOfStorages()
+        {
+            return _computerService
+                .FindAllStoragesForViewModel()
+                .Select(s => new SelectListItem() { Value = s.Id.ToString(), Text = s.Name })
+                .ToList();
+        }
+
+        private List<SelectListItem> ListOfGraphicsCards()
+        {
+            return _computerService
+                .FindAllGraphicsCardsForViewModel()
+                .Select(gc => new SelectListItem() { Value = gc.Id.ToString(), Text = gc.Name })
+                .ToList();
         }
     }
 }

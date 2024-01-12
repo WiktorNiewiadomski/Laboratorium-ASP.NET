@@ -1,0 +1,31 @@
+﻿@model Storage
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-6">
+            <h2>Storage details</h2>
+            <form>
+                <div>
+                    <label asp-for="Name">Name</label>
+                    <input class="form-control" type="text" asp-for="Name" readonly />
+                </div>
+                <label asp-for="Size">Size</label>
+                <div class="input-group">
+                    <div>
+                        <span asp-validation-for="Size" class="text-danger"></span>
+                    </div>
+                    <input class="form-control" type="text" asp-for="Size" readonly />
+                    <div class="input-group-append">
+                        <span class="input-group-text"> GB </span>
+                    </div>
+                </div>
+                <div>
+                    <label asp-for="Type">Core count</label>
+                    <input class="form-control" type="text" asp-for="Type" readonly />
+                </div>
+            </form>
+            <form asp-action="Index" asp-controller="Storage" method="GET">
+                <button type="submit">Back to list</button>
+            </form>
+        </div>
+    </div>
+</div>

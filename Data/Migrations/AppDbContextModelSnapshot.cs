@@ -15,7 +15,7 @@ namespace Data.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.14");
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.10");
 
             modelBuilder.Entity("Data.ComputerEntity", b =>
                 {
@@ -23,14 +23,15 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("ComputerType")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("DateOfManufacture")
                         .HasColumnType("TEXT")
                         .HasColumnName("manufacture_date");
 
-                    b.Property<string>("GraphicsCard")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                    b.Property<int>("GraphicsCardId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Manufacturer")
                         .IsRequired()
@@ -42,20 +43,19 @@ namespace Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Priority")
+                    b.Property<int>("ProcessorId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Processor")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Storage")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                    b.Property<int>("StorageId")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GraphicsCardId");
+
+                    b.HasIndex("ProcessorId");
+
+                    b.HasIndex("StorageId");
 
                     b.ToTable("computers");
 
@@ -63,25 +63,483 @@ namespace Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateOfManufacture = new DateTime(2018, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            GraphicsCard = "GK1",
-                            Manufacturer = "Apple",
-                            Name = "Nazwa 1",
-                            Priority = 3,
-                            Processor = "Procesor 1",
-                            Storage = "512Gb"
+                            ComputerType = 2,
+                            DateOfManufacture = new DateTime(2023, 4, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GraphicsCardId = 1,
+                            Manufacturer = "SaradaManu",
+                            Name = "Beast 3X8",
+                            ProcessorId = 1,
+                            StorageId = 1
                         },
                         new
                         {
                             Id = 2,
-                            DateOfManufacture = new DateTime(2021, 8, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            GraphicsCard = "GK2",
-                            Manufacturer = "Samsung",
-                            Name = "Nazwa 2",
-                            Priority = 2,
-                            Processor = "Procesor 2",
-                            Storage = "1Tb"
+                            ComputerType = 4,
+                            DateOfManufacture = new DateTime(2023, 8, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GraphicsCardId = 2,
+                            Manufacturer = "AlbinoPC",
+                            Name = "Workload B30",
+                            ProcessorId = 2,
+                            StorageId = 2
                         });
+                });
+
+            modelBuilder.Entity("Data.GraphicsCardEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Memory")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("graphics_cards");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Memory = 12,
+                            Name = "GeForce RTX 4070"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Memory = 8,
+                            Name = "Radeon RX 6600"
+                        });
+                });
+
+            modelBuilder.Entity("Data.ProcessorEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CacheSize")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CoreCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("processors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CacheSize = 24,
+                            CoreCount = 14,
+                            Name = "Intel Core i5-13600K"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CacheSize = 35,
+                            CoreCount = 6,
+                            Name = "AMD Ryzen 5 3600"
+                        });
+                });
+
+            modelBuilder.Entity("Data.StorageEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Size")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("storages");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "ADATA Ultimate SU650",
+                            Size = 1000,
+                            Type = "SSD"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "SAMSUNG 980",
+                            Size = 500,
+                            Type = "SSD"
+                        });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "a420d729-5e78-4870-9896-5a6c11174794",
+                            ConcurrencyStamp = "a420d729-5e78-4870-9896-5a6c11174794",
+                            Name = "admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "d9c1ca9d-17ee-416e-b426-a11b7f47b371",
+                            ConcurrencyStamp = "d9c1ca9d-17ee-416e-b426-a11b7f47b371",
+                            Name = "user",
+                            NormalizedName = "USER"
+                        });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "0a599824-cf4d-442d-b8ea-a298ec567775",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "3fe3d2fd-8922-4080-aac5-36e89e79348f",
+                            Email = "adam@wsei.edu.pl",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADAM@WSEI.EDU.PL",
+                            NormalizedUserName = "ADAM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHzGVZ3pXYaann/qZE4xU7WevwZcudkGc6qKsC6W76/5rW5WV8wwxe3iyVoFbMvI4Q==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "adam"
+                        },
+                        new
+                        {
+                            Id = "42353827-ad34-4094-93ea-c4e442fc96a9",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "89b699f9-5b9e-4e00-bbfe-b4aac3abd353",
+                            Email = "jacek@wsei.edu.pl",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "JACEK@WSEI.EDU.PL",
+                            NormalizedUserName = "JACEK",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFTec/RhI7oxkzUD5tf6wRCk5rmrEviJaS8heSECRrYlliU+FYBQFKydWz/Vw/CGIQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "jacek"
+                        });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "0a599824-cf4d-442d-b8ea-a298ec567775",
+                            RoleId = "a420d729-5e78-4870-9896-5a6c11174794"
+                        },
+                        new
+                        {
+                            UserId = "42353827-ad34-4094-93ea-c4e442fc96a9",
+                            RoleId = "d9c1ca9d-17ee-416e-b426-a11b7f47b371"
+                        });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Data.ComputerEntity", b =>
+                {
+                    b.HasOne("Data.GraphicsCardEntity", "GraphicsCard")
+                        .WithMany("Computers")
+                        .HasForeignKey("GraphicsCardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Data.ProcessorEntity", "Processor")
+                        .WithMany("Computers")
+                        .HasForeignKey("ProcessorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Data.StorageEntity", "Storage")
+                        .WithMany("Computers")
+                        .HasForeignKey("StorageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("GraphicsCard");
+
+                    b.Navigation("Processor");
+
+                    b.Navigation("Storage");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Data.GraphicsCardEntity", b =>
+                {
+                    b.Navigation("Computers");
+                });
+
+            modelBuilder.Entity("Data.ProcessorEntity", b =>
+                {
+                    b.Navigation("Computers");
+                });
+
+            modelBuilder.Entity("Data.StorageEntity", b =>
+                {
+                    b.Navigation("Computers");
                 });
 #pragma warning restore 612, 618
         }

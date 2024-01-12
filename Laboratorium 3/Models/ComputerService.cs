@@ -1,4 +1,6 @@
-﻿namespace Laboratorium_3.Models
+﻿using Data;
+
+namespace Laboratorium_3.Models
 {
     public class ComputerService : IComputerService
     {
@@ -19,6 +21,21 @@
         public List<Computer> FindAll()
         {
             return _items.Values.ToList();
+        }
+
+        public List<GraphicsCardEntity> FindAllGraphicsCardsForViewModel()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ProcessorEntity> FindAllProcessorsForViewModel()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<StorageEntity> FindAllStoragesForViewModel()
+        {
+            throw new NotImplementedException();
         }
 
         public Computer? FindById(int id)

@@ -1,0 +1,40 @@
+﻿@model Storage
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-6">
+            <h2>Edit storage</h2>
+            <form asp-action="Edit" asp-controller="Storage" method="POST">
+                <input type="number" asp-for="Id" hidden />
+                <div asp-validation-summary="All"></div>
+                <div>
+                    <label asp-for="Name">Name</label>
+                    <div>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <input class="form-control" type="text" asp-for="Name" />
+                </div>
+                <label asp-for="Size">Size</label>
+                <div class="input-group">
+                    <div>
+                        <span asp-validation-for="Size" class="text-danger"></span>
+                    </div>
+                    <input class="form-control" type="text" asp-for="Size" />
+                    <div class="input-group-append">
+                        <span class="input-group-text"> GB </span>
+                    </div>
+                </div>
+                <div>
+                    <label asp-for="Type">Type</label>
+                    <div>
+                        <span asp-validation-for="Type" class="text-danger"></span>
+                    </div>
+                    <input class="form-control" type="text" asp-for="Type" />
+                </div>
+                <button type="submit">Save</button>
+            </form>
+            <form asp-action="Index" asp-controller="Storage" method="GET">
+                <button type="submit">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>

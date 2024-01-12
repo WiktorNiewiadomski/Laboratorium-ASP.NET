@@ -1,0 +1,40 @@
+﻿@model Processor
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-6">
+            <h2>Edit processor</h2>
+            <form asp-action="Edit" asp-controller="Processor" method="POST">
+                <input type="number" asp-for="Id" hidden />
+                <div asp-validation-summary="All"></div>
+                <div>
+                    <label asp-for="Name">Name</label>
+                    <div>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <input class="form-control" type="text" asp-for="Name" />
+                </div>
+                <div>
+                    <label asp-for="CoreCount">Core count</label>
+                    <div>
+                        <span asp-validation-for="CoreCount" class="text-danger"></span>
+                    </div>
+                    <input class="form-control" type="text" asp-for="CoreCount" />
+                </div>
+                <label asp-for="CacheSize">Cache size</label>
+                <div class="input-group">
+                    <div>
+                        <span asp-validation-for="CacheSize" class="text-danger"></span>
+                    </div>
+                    <input class="form-control" type="text" asp-for="CacheSize" />
+                    <div class="input-group-append">
+                        <span class="input-group-text"> MB </span>
+                    </div>
+                </div>
+                <button type="submit">Save</button>
+            </form>
+            <form asp-action="Index" asp-controller="Processor" method="GET">
+                <button type="submit">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>

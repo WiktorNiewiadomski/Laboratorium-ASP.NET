@@ -18,19 +18,17 @@ namespace Data
         public string Name { get; set; }
 
         [Required]
-        public Priority Priority { get; set; }
+        public ComputerType ComputerType { get; set; }
 
-        [MaxLength(50)]
-        [Required]
-        public string Processor { get; set; }
+        
+        public int ProcessorId { get; set; }
+        public ProcessorEntity Processor { get; set; }
 
-        [MaxLength(50)]
-        [Required]
-        public string Storage { get; set; }
+        public int StorageId { get; set; }
+        public StorageEntity Storage { get; set; }
 
-        [MaxLength(50)]
-        [Required]
-        public string GraphicsCard { get; set; }
+        public int GraphicsCardId { get; set; }
+        public GraphicsCardEntity GraphicsCard { get; set; }
 
         [MaxLength(50)]
         [Required]

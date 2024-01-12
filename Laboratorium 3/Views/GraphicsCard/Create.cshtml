@@ -1,0 +1,32 @@
+﻿@model GraphicsCard
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-6">
+            <h2>Create graphics card</h2>
+            <form asp-action="Create" asp-controller="GraphicsCard" method="POST">
+                <div asp-validation-summary="All"></div>
+                <div>
+                    <label asp-for="Name">Name</label>
+                    <div>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <input class="form-control" type="text" asp-for="Name"/>
+                </div>
+                <label asp-for="Memory">Memory</label>
+                <div class="input-group">
+                    <div>
+                        <span asp-validation-for="Memory" class="text-danger"></span>
+                    </div>
+                    <input class="form-control" type="text" asp-for="Memory" />
+                    <div class="input-group-append">
+                        <span class="input-group-text"> GB </span>
+                    </div>
+                </div>
+                <button type="submit">Save</button>
+            </form>
+            <form asp-action="Index" asp-controller="GraphicsCard" method="GET">
+                <button type="submit">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>
